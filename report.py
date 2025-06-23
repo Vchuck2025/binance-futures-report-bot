@@ -12,3 +12,4 @@ def send_telegram_message(text):
         requests.post(url, data={"chat_id": chat_id, "text": text})
 
 send_telegram_message(report_message)
+# test trigger

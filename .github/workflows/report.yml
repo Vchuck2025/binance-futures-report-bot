@@ -1,0 +1,28 @@
+name: Binance Futures Report Bot
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # 每小時 UTC 執行一次
+  workflow_dispatch:     # 手動觸發功能
+
+jobs:
+  run-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 程式碼
+        uses: actions/checkout@v3
+
+      - name: 設定 Python 環境
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: 安裝 requests 套件
+        run: pip install requests
+
+      - name: 執行報告腳本
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_IDS: ${{ secrets.CHAT_IDS }}
+        run: python report.py
